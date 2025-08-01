@@ -1,0 +1,7 @@
+.fixed-header-wrapper {
+  padding-block: 125px;
+  padding-inline-start: 35px;
+  position: sticky;
+  z-index: 0;
+  top: 0;
+}

@@ -1,0 +1,27 @@
+.notif-msg {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  padding-top: 0.5rem;
+  padding: 0;
+}
+.notif-info {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  margin-top: 1rem;
+  padding: 0;
+}
+.btn-container {
+  height: 200px;
+  width: 100%;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  padding-top: 1rem;
+}
+.view-notif-btn {
+  --border-radius: 1rem;
+  font-size: 13px;
+  text-transform: capitalize;
+}

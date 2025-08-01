@@ -1,2 +1,98 @@
+@font-face {
+  font-family: "Agdasima-Bold";
+  src: url("../assets/fonts/Agdasima/Agdasima-Bold.ttf") format("truetype");
+  font-weight: bolder;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Agdasima";
+  src: url("../assets/fonts/Agdasima/Agdasima-Regular.ttf") format("truetype");
+  font-weight: bolder;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("../assets/fonts/Inter/Inter-Regular.ttf") format("truetype");
+  font-weight: bolder;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Montserrat";
+  src: url("../assets/fonts/Montserrat/Montserrat-VariableFont_wght.ttf")
+    format("truetype");
+  font-weight: bolder;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Poppins";
+  src: url("../assets/fonts/Poppins/Poppins-Regular.ttf") format("truetype");
+  font-weight: bolder;
+  font-style: normal;
+}
+* {
+  font-family: "Poppins";
+}
 /* For information on how to create your own theme, please see:
 http://ionicframework.com/docs/theming/ */
+:root {
+  /* Background Color */
+  --ion-color-dark-bg: #18191a;
+  --ion-color-dark-bg-rgb: 24, 25, 26;
+  --ion-color-dark-bg-contrast: #ffffff;
+  --ion-color-dark-bg-contrast-rgb: 255, 255, 255;
+  --ion-color-dark-bg-shade: #151617;
+  --ion-color-dark-bg-tint: #2f3031;
+  /* My-main */
+  --ion-color-my-main: #343536;
+  --ion-color-my-main-rgb: 52, 53, 54;
+  --ion-color-my-main-contrast: #ffffff;
+  --ion-color-my-main-contrast-rgb: 255, 255, 255;
+  --ion-color-my-main-shade: #2e2f30;
+  --ion-color-my-main-tint: #48494a;
+  /* My-secondary */
+
+  --ion-color-my-secondary: #2e2e2f;
+  --ion-color-my-secondary-rgb: 46, 46, 47;
+  --ion-color-my-secondary-contrast: #ffffff;
+  --ion-color-my-secondary-contrast-rgb: 255, 255, 255;
+  --ion-color-my-secondary-shade: #282829;
+  --ion-color-my-secondary-tint: #434344;
+}
+.ion-color-dark-bg {
+  --ion-color-base: var(--ion-color-dark-bg);
+  --ion-color-base-rgb: var(--ion-color-dark-bg-rgb);
+  --ion-color-contrast: var(--ion-color-dark-bg-contrast);
+  --ion-color-contrast-rgb: var(--ion-color-dark-bg-contrast-rgb);
+  --ion-color-shade: var(--ion-color-dark-bg-shade);
+  --ion-color-tint: var(--ion-color-dark-bg-tint);
+}
+.ion-color-my-main {
+  --ion-color-base: var(--ion-color-my-main);
+  --ion-color-base-rgb: var(--ion-color-my-main-rgb);
+  --ion-color-contrast: var(--ion-color-my-main-contrast);
+  --ion-color-contrast-rgb: var(--ion-color-my-main-contrast-rgb);
+  --ion-color-shade: var(--ion-color-my-main-shade);
+  --ion-color-tint: var(--ion-color-my-main-tint);
+}
+.ion-color-my-secondary {
+  --ion-color-base: var(--ion-color-my-secondary);
+  --ion-color-base-rgb: var(--ion-color-my-secondary-rgb);
+  --ion-color-contrast: var(--ion-color-my-secondary-contrast);
+  --ion-color-contrast-rgb: var(--ion-color-my-secondary-contrast-rgb);
+  --ion-color-shade: var(--ion-color-my-secondary-shade);
+  --ion-color-tint: var(--ion-color-my-secondary-tint);
+}
+
+/* For searchbar custom */
+.searchbar-input.sc-ion-searchbar-md {
+  background: #ffffff;
+  border-radius: 1rem;
+}
+/* For removing header's shadow */
+ion-header {
+  --background: transparent !important;
+  box-shadow: none !important;
+  border-color: transparent !important;
+}

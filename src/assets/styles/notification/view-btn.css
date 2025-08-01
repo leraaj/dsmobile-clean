@@ -1,0 +1,5 @@
+.view-btn {
+  font-size: small !important;
+  text-transform: capitalize !important;
+  --border-radius: 1rem;
+}

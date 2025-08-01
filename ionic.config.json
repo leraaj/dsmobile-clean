@@ -1,7 +1,10 @@
 {
-  "name": "abg-application",
+  "name": "dsIonic",
   "integrations": {
     "capacitor": {}
+  },
+  "server": {
+    "port": 3000
   },
   "type": "react-vite"
 }
