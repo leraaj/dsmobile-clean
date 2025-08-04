@@ -45,20 +45,23 @@ const ViewNotification: React.FC<ViewNotificationProps> = ({ match }) => {
     notification?.phase === 3 &&
     notification?.appointmentStatus === 1 &&
     notification?.complete === 0;
+  const isTeamBriefing =
+    notification?.phase === 3 &&
+    notification?.appointmentStatus === 2 &&
+    notification?.complete === 0;
 
   const showResponseButtons =
     isInitialInterview || isFinalInterview || isClientInterview;
 
   const handleInterviewResponse = ({ response }: InterviewResponseParams) => {
     if (isInitialInterview) {
-      console.log("Initial interview block triggered");
       handleInitialInterview({ response });
     } else if (isFinalInterview) {
-      console.log("Final interview block triggered");
       handleFinalInterview({ response });
     } else if (isClientInterview) {
-      console.log("Client interview block triggered");
       handleClientInterview({ response });
+    } else if (isTeamBriefing) {
+      handleTeamBriefing({ response });
     }
   };
 
@@ -71,11 +74,6 @@ const ViewNotification: React.FC<ViewNotificationProps> = ({ match }) => {
       complete: 0,
     };
     await handleInterview(data, notifId);
-
-    showToast(
-      interviewMessage ? "Sent successfully" : (interviewError as any),
-      "primary"
-    );
   };
   const handleFinalInterview = async ({
     response,
@@ -86,11 +84,6 @@ const ViewNotification: React.FC<ViewNotificationProps> = ({ match }) => {
       complete: 0,
     };
     await handleInterview(data, notifId);
-
-    showToast(
-      interviewMessage ? "Sent successfully" : (interviewError as any),
-      "primary"
-    );
   };
   const handleClientInterview = async ({
     response,
@@ -101,11 +94,14 @@ const ViewNotification: React.FC<ViewNotificationProps> = ({ match }) => {
       complete: 0,
     };
     await handleInterview(data, notifId);
-
-    showToast(
-      interviewMessage ? "Sent successfully" : (interviewError as any),
-      "primary"
-    );
+  };
+  const handleTeamBriefing = async ({ response }: InterviewResponseParams) => {
+    const data = {
+      phase: 3,
+      appointmentStatus: response === 1 ? 2 : -1,
+      complete: 0,
+    };
+    await handleInterview(data, notifId);
   };
 
   const notifInfo = notification
@@ -137,7 +133,8 @@ const ViewNotification: React.FC<ViewNotificationProps> = ({ match }) => {
               {/* {notifId} */}
               {notification?.meetingLink &&
                 (!notification.initialRemarks ||
-                  !notification.finalRemarks) && (
+                  !notification.finalRemarks ||
+                  !notification.hiringRemarks) && (
                   <span>
                     <strong>Meeting Link:</strong>
                     <br />
@@ -153,7 +150,8 @@ const ViewNotification: React.FC<ViewNotificationProps> = ({ match }) => {
             <IonText className="notif-info">
               {notification?.meetingTime &&
                 (!notification.initialRemarks ||
-                  !notification.finalRemarks) && (
+                  !notification.finalRemarks ||
+                  !notification.hiringRemarks) && (
                   <span>
                     <strong>Meeting Time:</strong>
                     <br />

@@ -146,6 +146,24 @@ export function getNotificationMessage(
         finalRemarks,
       };
     }
+    if (appointmentStatus === 2 && complete === 0) {
+      return {
+        message:
+          type === "summary" ? (
+            <>Invitation for Team Briefing</>
+          ) : (
+            <>
+              Kindly prepare for your team briefing
+              <br />
+              {`${phase} ${appointmentStatus} ${complete}`}
+            </>
+          ),
+        meetingLink,
+        meetingTime,
+        initialRemarks,
+        finalRemarks,
+      };
+    }
     if (appointmentStatus === 2 && complete === 1) {
       return {
         message:
@@ -155,6 +173,8 @@ export function getNotificationMessage(
             <>
               Please wait while we assigned you for a job on our website
               platform
+              <br />
+              {`${phase} ${appointmentStatus} ${complete}`}
             </>
           ),
         initialRemarks,

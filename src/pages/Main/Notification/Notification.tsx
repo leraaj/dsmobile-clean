@@ -30,9 +30,16 @@ const Notification = () => {
     firstNotification?.phase === 3 &&
     firstNotification?.appointmentStatus === 1 &&
     firstNotification?.complete === 0;
+  const isTeamBriefing =
+    firstNotification?.phase === 3 &&
+    firstNotification?.appointmentStatus === 2 &&
+    firstNotification?.complete === 0;
 
   const showResponseButtons =
-    isInitialInterview || isFinalInterview || isClientInterview;
+    isInitialInterview ||
+    isFinalInterview ||
+    isClientInterview ||
+    isTeamBriefing;
 
   const handleInterviewResponse = ({ response }: InterviewResponseParams) => {
     if (isInitialInterview) {
@@ -43,6 +50,9 @@ const Notification = () => {
     }
     if (isFinalInterview) {
       handleClientInterview({ response });
+    }
+    if (isTeamBriefing) {
+      handleTeamBriefing({ response });
     }
   };
 
@@ -65,6 +75,11 @@ const Notification = () => {
       response === 1
         ? "(isFinalInterview) Accepted"
         : "(isFinalInterview) Declined"
+    );
+  };
+  const handleTeamBriefing = ({ response }: InterviewResponseParams) => {
+    alert(
+      response === 1 ? "(isTeamBriefing) Accepted" : "(isTeamBriefing) Declined"
     );
   };
 

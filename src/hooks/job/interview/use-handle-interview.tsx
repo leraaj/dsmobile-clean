@@ -1,6 +1,8 @@
 import { useState } from "react";
 import axios from "axios";
 import { useAuthContext } from "../../../helpers/context/AuthContext";
+import { useToast } from "../../../helpers/context/ToastContext";
+import { useHistory } from "react-router";
 
 const useHandleInterview = () => {
   const { user } = useAuthContext();
@@ -8,7 +10,8 @@ const useHandleInterview = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [message, setMessage] = useState<string | null>(null); // ✅ new state
-
+  const { showToast } = useToast();
+  const history = useHistory();
   const handleInterview = async (data: object, appointmentId: string) => {
     if (!user?._id) {
       setError("User not authenticated");
@@ -25,16 +28,16 @@ const useHandleInterview = () => {
         `${BASE_URL}/appointment/${appointmentId}`,
         data
       );
-      alert(JSON.stringify(data));
-      if (response.status === 200 || response.status === 201) {
-        setMessage("Response sent successfully");
+      if (response) {
+        showToast("Response handled successfully", "success");
+        history.push("/tabs/notification");
       } else {
-        setError("Unexpected response received.");
+        showToast("Unexpected response received.", "danger");
       }
       console.log(response);
     } catch (err: any) {
       const errorMsg = "Request failed";
-      setError(errorMsg);
+      showToast(errorMsg, "danger");
     } finally {
       setLoading(false);
     }
