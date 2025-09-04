@@ -14,6 +14,7 @@ type Props = {
   subHeader?: string;
   routerLink?: string;
   children?: React.ReactNode;
+  light?: boolean;
 };
 
 const Section: React.FC<Props> = ({
@@ -22,11 +23,16 @@ const Section: React.FC<Props> = ({
   subHeader,
   routerLink,
   children,
+  light,
 }) => {
+  const color = light ? "light" : "dark";
+
   if (ionTitle) {
     return (
       <div className="title-container">
-        <IonTitle className="title-header">{ionTitle}</IonTitle>
+        <IonTitle className="title-header" color={color}>
+          {ionTitle}
+        </IonTitle>
       </div>
     );
   }
@@ -35,8 +41,12 @@ const Section: React.FC<Props> = ({
     return (
       <>
         <div className="header-title-container">
-          <IonText className="title-header">{headerTitle}</IonText>
-          <IonText className="title-sub-header">{subHeader}</IonText>
+          <IonText className="title-header" color={color}>
+            {headerTitle}
+          </IonText>
+          <IonText className="title-sub-header" color={color}>
+            {subHeader}
+          </IonText>
         </div>
         {children && <div className="content">{children}</div>}
       </>
@@ -47,8 +57,14 @@ const Section: React.FC<Props> = ({
     return (
       <>
         <IonListHeader className="header-title-container" mode="md">
-          <IonLabel className="title-header">{headerTitle}</IonLabel>
-          {routerLink && <IonButton routerLink={routerLink}>Edit</IonButton>}
+          <IonLabel className="title-header" color={color}>
+            {headerTitle}
+          </IonLabel>
+          {routerLink && (
+            <IonButton routerLink={routerLink} color={color}>
+              Edit
+            </IonButton>
+          )}
         </IonListHeader>
         {children && <div className="content">{children}</div>}
       </>

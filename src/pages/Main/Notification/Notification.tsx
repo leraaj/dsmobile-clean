@@ -7,12 +7,14 @@ import useFetchNotifications from "../../../hooks/notification/use-notification"
 import NotificationCard from "../../../components/Custom/Card/NotificationCard";
 import { getNotificationMessage } from "../../../helpers/messages/getNotificationMessage";
 import LoadingSpinner from "../../Other/LoadingSpinner";
-
+import { io } from "socket.io-client";
+import { useEffect } from "react";
 interface InterviewResponseParams {
   response: number;
 }
 // Todo: Make the interviews functional
 const Notification = () => {
+  const socket = io("http://localhost:3001");
   const { notifications, refresh, loading } = useFetchNotifications();
 
   // Use the first notification for your detailed checks (adjust as needed)
@@ -82,7 +84,16 @@ const Notification = () => {
       response === 1 ? "(isTeamBriefing) Accepted" : "(isTeamBriefing) Declined"
     );
   };
+  useEffect(() => {
+    socket.on("refresh-notification", (data) => {
+      console.log("You've sent an application:");
+      refresh();
+    });
 
+    return () => {
+      socket.off("refresh-notification");
+    };
+  }, []);
   return (
     <IonicLayout
       isMain

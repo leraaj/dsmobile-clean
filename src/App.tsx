@@ -26,12 +26,12 @@ import "./theme/variables.css";
 import "./assets/styles/app.css";
 
 // Lazy-loaded pages
-const Login = lazy(() => import("./pages/Main/Login"));
+const Login = lazy(() => import("./pages/Login/Login"));
+const Registration = lazy(() => import("./pages/Registration/Registration"));
 const TabsLayout = lazy(() => import("./pages/Tabs/TabsLayout"));
 
 // Context and layout
 import { useAuthContext } from "./helpers/context/AuthContext";
-import IonicLayout from "./components/Layouts/IonicLayout";
 import ViewJob from "./pages/Main/Job/ViewJob";
 import ViewNotification from "./pages/Main/Notification/ViewNotification";
 import ProfileUpdateDetails from "./pages/Main/Profile/Profile-Update/ProfileUpdateDetails";
@@ -41,7 +41,6 @@ import ProfileUpdateCvResume from "./pages/Main/Profile/Profile-Update/Files/Pro
 import ProfileUpdatePortfolio from "./pages/Main/Profile/Profile-Update/Files/ProfileUpdatePortfolio";
 import { ToastProvider } from "./helpers/context/ToastContext";
 import SplashScreen from "./pages/Other/SplashScreen";
-
 setupIonicReact();
 
 const App: React.FC = () => {
@@ -59,10 +58,16 @@ const App: React.FC = () => {
               path="/tabs"
               render={() => (user ? <TabsLayout /> : <Redirect to="/login" />)}
             />
+
             <Route
               exact
               path="/login"
               render={() => (user ? <Redirect to="/tabs/job" /> : <Login />)}
+            />
+            <Route
+              exact
+              path="/register"
+              render={() => <Registration key={Date.now()} />}
             />
 
             <Route

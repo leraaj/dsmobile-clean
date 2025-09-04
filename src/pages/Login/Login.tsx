@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import IonicLayout from "../../components/Layouts/IonicLayout";
 import {
   IonButton,
@@ -11,7 +11,6 @@ import "../../assets/styles/login.css";
 import { useLogin } from "../../hooks/auth/use-login";
 import { useHistory } from "react-router";
 import { useAuthContext } from "../../helpers/context/AuthContext";
-import { LoginResponse } from "../../interfaces/User/auth";
 import useFetchJobs from "../../hooks/job/use-job";
 import DarkshotProductions from "../../assets/images/darkshot-logo-collapsed.png";
 import Icon from "../../assets/images/darkshotproduction-logo.png";
@@ -23,9 +22,10 @@ const Login = () => {
   const history = useHistory();
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-
   const [showToast, setShowToast] = useState(false);
-  const handleLogin = async () => {
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault(); // Prevent page reload on form submit
     try {
       const response = await login(username, password);
       if (response) {
@@ -43,7 +43,7 @@ const Login = () => {
       isScrollable={true}
       color="dark-bg">
       <div className="login-container">
-        <div className="login-forms">
+        <form onSubmit={handleSubmit} className="login-forms">
           <IonToast
             isOpen={showToast}
             onDidDismiss={() => setShowToast(false)}
@@ -52,6 +52,7 @@ const Login = () => {
             color="success"
             position="bottom"
           />
+
           <div
             style={{
               display: "flex",
@@ -65,33 +66,44 @@ const Login = () => {
             />
             <img src={Icon} style={{ width: "10rem" }} />
           </div>
+
           <IonInput
             type="text"
-            color={"light"}
+            color="light"
             className={`${error && "ion-invalid ion-touched"}`}
-            errorText=""
             labelPlacement="floating"
             label="Username"
             value={username}
             onIonInput={(e) => setUsername(e.detail.value ?? "")}
+            required
           />
 
           <IonInput
             type="password"
-            color={"light"}
+            color="light"
             className={`${error && "ion-invalid ion-touched"}`}
-            errorText=""
             labelPlacement="floating"
             label="Password"
             value={password}
             onIonInput={(e) => setPassword(e.detail.value ?? "")}
+            required
           />
-        </div>
-        <div className="login-buttons ion-padding-top">
-          <IonButton color={"my-main"} expand="full" onClick={handleLogin}>
-            {loading ? <IonSpinner name="dots" color="light" /> : "sign in"}
-          </IonButton>
-        </div>
+
+          <div className="login-buttons ion-padding-top">
+            <IonButton
+              color="my-main"
+              expand="full"
+              type="submit" // Submit type button inside form
+              disabled={loading}>
+              {loading ? <IonSpinner name="dots" color="light" /> : "sign in"}
+            </IonButton>
+            <div style={{ textAlign: "end", cursor: "pointer" }}>
+              <IonText onClick={() => history.push("/register")}>
+                Don’t have an account? <strong>Sign up</strong>
+              </IonText>
+            </div>
+          </div>
+        </form>
       </div>
     </IonicLayout>
   );

@@ -18,10 +18,14 @@ import useSendApplication from "../../../hooks/job/application/use-send-applicat
 import useFetchNotifications from "../../../hooks/notification/use-notification";
 import { useToast } from "../../../helpers/context/ToastContext";
 import useFetchJobs from "../../../hooks/job/use-job";
+import { io } from "socket.io-client";
 
 interface ViewJobProps extends RouteComponentProps<{ id: string }> {}
 
 const ViewJob: React.FC<ViewJobProps> = ({ match }) => {
+  const socket = io("http://localhost:3001", {
+    transports: ["websocket"], // helps avoid polling issues
+  });
   const jobId = match.params.id;
   const { job, loading, error } = useJobById(jobId);
   const {
@@ -76,9 +80,12 @@ const ViewJob: React.FC<ViewJobProps> = ({ match }) => {
 
   const handleSubmit = async () => {
     await sendApplication();
-    await refetch(); // get updated notifications
+    await handleNotificationRefresh(); // get updated notifications
 
     history.push("/tabs");
+  };
+  const handleNotificationRefresh = () => {
+    socket.emit("send-application", job);
   };
   return (
     <IonicLayout

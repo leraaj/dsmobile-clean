@@ -5,12 +5,15 @@ import { useToast } from "../../helpers/context/ToastContext";
 import { useHistory } from "react-router";
 
 export function useUploadPortfolio() {
-  const { user, initialize } = useAuthContext();
+  const { user } = useAuthContext();
   const { showToast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
   const history = useHistory();
-  const uploadPortfolio = async (files: File[]) => {
-    if (!user?._id) {
+
+  const uploadPortfolio = async (files: File[], registeredId?: string) => {
+    const effectiveId = registeredId || user?._id; // use provided ID or fallback to logged-in user
+
+    if (!effectiveId) {
       showToast("User ID is missing", "danger");
       return;
     }
@@ -21,7 +24,7 @@ export function useUploadPortfolio() {
     }
 
     const formData = new FormData();
-    formData.append("id", user._id);
+    formData.append("id", effectiveId);
 
     files.forEach((file) => {
       formData.append("portfolio", file);
@@ -47,8 +50,11 @@ export function useUploadPortfolio() {
       if (response?.data?.success) {
         showToast(response.data.message, "success");
 
-        await initialize();
-        history.replace("/tabs/profile");
+        // ✅ Only redirect if this was triggered by a logged-in user
+        if (!registeredId) {
+          history.replace("/tabs/profile");
+        }
+
         return response.data;
       } else {
         showToast("Failed to upload portfolio", "danger");

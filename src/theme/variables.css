@@ -96,3 +96,10 @@ ion-header {
   box-shadow: none !important;
   border-color: transparent !important;
 }
+.montserrat {
+  font-family: "Montserrat";
+}
+.agdasima-bold {
+  font-family: "Agdasima-Bold";
+  text-transform: uppercase !important;
+}

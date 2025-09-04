@@ -9,9 +9,6 @@ import {
   returnDownBack,
   trashSharp,
 } from "ionicons/icons";
-import PortFolioPlaceHolder from "../../../../../assets/images/emptyImage.png";
-import axios from "axios";
-import { useToast } from "../../../../../helpers/context/ToastContext";
 import { useUploadPortfolio } from "../../../../../hooks/profile/useUploadPortfolio";
 import { useDeletePortfolio } from "../../../../../hooks/profile/useDeletePortfolio";
 
