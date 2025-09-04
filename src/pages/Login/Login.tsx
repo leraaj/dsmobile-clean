@@ -102,6 +102,8 @@ const Login = () => {
                 Don’t have an account? <strong>Sign up</strong>
               </IonText>
             </div>
+            <br />
+            <IonText>{import.meta.env.VITE_APP_API_URL}</IonText>
           </div>
         </form>
       </div>
